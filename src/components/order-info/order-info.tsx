@@ -1,21 +1,27 @@
-import { FC, useMemo } from 'react';
+import { FC, useEffect, useMemo } from 'react';
 import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
 import { TIngredient } from '@utils-types';
+import { useSelector, useDispatch } from '../../services/store';
+import { useParams } from 'react-router-dom';
 
-export const OrderInfo: FC = () => {
+import { getOrderByNumber } from '../../services/thunk/feedThunk';
+
+type TOrderInfoProps = {
+  title?: boolean;
+};
+
+export const OrderInfo: FC<TOrderInfoProps> = (props) => {
   /** TODO: взять переменные orderData и ingredients из стора */
-  const orderData = {
-    createdAt: '',
-    ingredients: [],
-    _id: '',
-    status: '',
-    name: '',
-    updatedAt: 'string',
-    number: 0
-  };
+  const dispatch = useDispatch();
+  const idOrderInfo = Number(useParams().id);
 
-  const ingredients: TIngredient[] = [];
+  useEffect(() => {
+    dispatch(getOrderByNumber(idOrderInfo));
+  }, [idOrderInfo]);
+
+  const ingredients = useSelector((state) => state.ingredientData.ingredients);
+  const orderData = useSelector((state) => state.feedData.orderByNumber);
 
   /* Готовим данные для отображения */
   const orderInfo = useMemo(() => {
@@ -63,5 +69,5 @@ export const OrderInfo: FC = () => {
     return <Preloader />;
   }
 
-  return <OrderInfoUI orderInfo={orderInfo} />;
+  return <OrderInfoUI {...props} orderInfo={orderInfo} />;
 };
