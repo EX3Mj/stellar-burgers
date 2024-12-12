@@ -1,5 +1,13 @@
+.title {
+  text-align: center;
+  font-family: "Iceland", sans-serif;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 24px;
+}
+
 .wrap {
-  margin: 0 auto;
+  margin: auto auto;
   width: 640px;
 }
 .number {
