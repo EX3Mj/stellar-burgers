@@ -1,14 +1,25 @@
 import { FC } from 'react';
 import { Preloader } from '../ui/preloader';
 import { IngredientDetailsUI } from '../ui/ingredient-details';
+import { useSelector } from '../../services/store';
+import { useParams } from 'react-router-dom';
 
-export const IngredientDetails: FC = () => {
+type TIngredientInfoProps = {
+  title?: boolean;
+};
+
+export const IngredientDetails: FC<TIngredientInfoProps> = (props) => {
+  const { id } = useParams();
   /** TODO: взять переменную из стора */
-  const ingredientData = null;
+  const ingredients = useSelector((state) => state.ingredientData.ingredients);
+  const ingredientDetailData =
+    ingredients.find((item) => item._id === id) || null;
 
-  if (!ingredientData) {
+  if (!ingredientDetailData) {
     return <Preloader />;
   }
 
-  return <IngredientDetailsUI ingredientData={ingredientData} />;
+  return (
+    <IngredientDetailsUI {...props} ingredientData={ingredientDetailData} />
+  );
 };

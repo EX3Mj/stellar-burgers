@@ -1,5 +1,5 @@
 .content {
-  margin: 0 60px;
+  margin: auto auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,4 +21,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.title {
+  text-align: center;
+  font-family: 'Iceland', sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 24px;
 }
