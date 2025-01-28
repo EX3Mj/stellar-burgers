@@ -42,25 +42,30 @@ export const userSlice = createSlice({
       .addCase(getUser.fulfilled, (state, action) => {
         state.user = action.payload;
         state.isAuthChecked = true;
+        state.authRequest = false;
       })
       .addCase(registerUser.pending, (state) => {
-        state.authRequest = false;
+        state.authRequest = true;
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.authRequest = false;
       })
       .addCase(registerUser.fulfilled, (state, action) => {
-        state.authRequest = action.payload.success;
+        state.user = action.payload.user;
+        state.authRequest = false;
       })
       .addCase(loginUser.pending, (state) => {
         state.isAuthChecked = false;
+        state.authRequest = true;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.user = action.payload;
         state.isAuthChecked = true;
+        state.authRequest = false;
       })
       .addCase(loginUser.rejected, (state) => {
         state.isAuthChecked = true;
+        state.authRequest = false;
       })
       .addCase(updateUser.pending, (state) => {
         state.authRequest = true;

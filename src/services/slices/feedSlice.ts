@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { TOrder } from '../../utils/types';
 import { getOrderByNumber, getFeed } from '../thunk/feedThunk';
 
-type TFeedState = {
+export type TFeedState = {
   orders: TOrder[];
   total: number;
   totalToday: number;
@@ -40,7 +40,7 @@ export const feedSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getOrderByNumber.rejected, (state) => {
-        state.isLoading = true;
+        state.isLoading = false;
       })
       .addCase(getOrderByNumber.fulfilled, (state, action) => {
         state.orderByNumber = action.payload.orders[0];
