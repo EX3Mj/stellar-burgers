@@ -2,9 +2,9 @@ import { createSlice, PayloadAction, nanoid } from '@reduxjs/toolkit';
 import { TIngredient, TConstructorIngredient, TOrder } from '../../utils/types';
 import { orderBurger } from '../thunk/constructorThunk';
 
-type TConstuctorState = {
+export type TConstuctorState = {
   constructorItems: {
-    bun: TIngredient | null;
+    bun: TConstructorIngredient | null;
     ingredients: TConstructorIngredient[];
   };
   orderRequest: boolean;
